@@ -1,5 +1,9 @@
 import React from 'react'
-import echarts from 'echarts'
+import echarts from 'echarts/lib/echarts'
+import 'echarts/lib/chart/line'
+import 'echarts/lib/chart/pie'
+import 'echarts/lib/component/tooltip'
+import 'echarts/lib/component/legend'
 
 const option: echarts.EChartOption = {
   legend: {},
