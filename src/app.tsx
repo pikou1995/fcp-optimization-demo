@@ -10,8 +10,6 @@ import Footer from './components/footer'
 
 const { Content } = Layout
 
-import 'antd/dist/antd.css'
-
 export default function App() {
   return (
     <Router>
