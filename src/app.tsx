@@ -1,12 +1,33 @@
-import React from 'react'
+import React, { Suspense, lazy } from 'react'
 import { HashRouter as Router, Switch, Route } from 'react-router-dom'
-import { Layout } from 'antd'
+import { Layout, Spin } from 'antd'
 import Header from './components/header'
-import Home from './components/home'
-import Form from './components/form'
-import Table from './components/table'
-import Chart from './components/chart'
 import Footer from './components/footer'
+import Home from './components/home'
+
+const Form = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "form" */
+      './components/form'
+    )
+)
+
+const Table = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "table" */
+      './components/table'
+    )
+)
+
+const Chart = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "chart" */
+      './components/chart'
+    )
+)
 
 const { Content } = Layout
 
@@ -16,20 +37,14 @@ export default function App() {
       <Layout>
         <Header />
         <Content>
-          <Switch>
-            <Route path="/form">
-              <Form />
-            </Route>
-            <Route path="/table">
-              <Table />
-            </Route>
-            <Route path="/chart">
-              <Chart />
-            </Route>
-            <Route path="/">
-              <Home />
-            </Route>
-          </Switch>
+          <Suspense fallback={<div style={{ textAlign: 'center' }}><Spin /></div>}>
+            <Switch>
+              <Route path="/form" component={Form} />
+              <Route path="/table" component={Table} />
+              <Route path="/chart" component={Chart} />
+              <Route path="/" component={Home} />
+            </Switch>
+          </Suspense>
         </Content>
       </Layout>
       <Footer />
